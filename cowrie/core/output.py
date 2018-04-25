@@ -114,23 +114,6 @@ class Output(object):
         """
         ev = kw
         ev['message'] = msg
-	print "yyyyyyeeeeesssss"
-        links = re.findall("https?://[\w/\.:]+", msg)
-        links_array = []
-        #link_file = open("/data/cowrie/log/links", 'w')
-        for link in links:
-	    print link
-	    print "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-            links_array.append(link)
-        #    link_file.write(link+"\n")
-        #links_array = set(links_array)
-        link_file.close()
-        ev['cowrie_links'] = links_array
-        ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(?P<ip>[\d\.]+)")
-        ftp_ip = []
-        for link in ftp_links:
-	    ftp_ip.append(link.group('ip'))	
-        ev['cowrie_ip'] = ftp_ip
         self.emit(ev)
 
 
@@ -184,7 +167,26 @@ class Output(object):
                 del ev['format']
             except:
                 pass
-
+	if 'message' in ev and ev['message'] != ():
+	    print "yyyyyyeeeeesssss"
+	    print ev['message']
+	    print "bbbbbbb"
+       	    links = re.findall("https?://[\w/\.:]+", msg)
+            links_array = []
+            #link_file = open("/data/cowrie/log/links", 'w')
+            for link in links:
+	        print link
+	        print "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                links_array.append(link)
+            #    link_file.write(link+"\n")
+            #links_array = set(links_array)
+            #link_file.close()
+            ev['cowrie_links'] = links_array
+            ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(?P<ip>[\d\.]+)")
+            ftp_ip = []
+            for link in ftp_links:
+	        ftp_ip.append(link.group('ip'))	
+            ev['cowrie_ip'] = ftp_ip
         # On disconnect add the tty log
         #if ev['eventid'] == 'cowrie.log.closed':
             # FIXME: file is read for each output plugin
