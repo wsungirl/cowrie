@@ -182,9 +182,10 @@ class Output(object):
             #links_array = set(links_array)
             #link_file.close()
             ev['cowrie_links'] = links_array
-            ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(?P<ip>[\d\.]+)", ev['message'])
+            ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(\d\d\s)?(?P<ip>[\d\.]+)", ev['message'])
             ftp_ip = []
             for link in ftp_links:
+		print link
 	        ftp_ip.append(link.group('ip'))	
             ev['cowrie_ip'] = ftp_ip
         # On disconnect add the tty log
