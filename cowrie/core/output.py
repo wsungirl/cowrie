@@ -171,7 +171,7 @@ class Output(object):
 	    print "yyyyyyeeeeesssss"
 	    print ev['message']
 	    print "bbbbbbb"
-       	    links = re.findall("https?://[\w/\.:]+", msg)
+       	    links = re.findall("https?://[\w/\.:]+", ev['message'])
             links_array = []
             #link_file = open("/data/cowrie/log/links", 'w')
             for link in links:
@@ -182,7 +182,7 @@ class Output(object):
             #links_array = set(links_array)
             #link_file.close()
             ev['cowrie_links'] = links_array
-            ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(?P<ip>[\d\.]+)")
+            ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(?P<ip>[\d\.]+)", ev['message'])
             ftp_ip = []
             for link in ftp_links:
 	        ftp_ip.append(link.group('ip'))	
