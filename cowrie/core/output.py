@@ -114,10 +114,13 @@ class Output(object):
         """
         ev = kw
         ev['message'] = msg
+	print "yyyyyyeeeeesssss"
         links = re.findall("https?://[\w/\.:]+", msg)
         links_array = []
         #link_file = open("/data/cowrie/log/links", 'w')
         for link in links:
+	    print link
+	    print "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             links_array.append(link)
         #    link_file.write(link+"\n")
         #links_array = set(links_array)
