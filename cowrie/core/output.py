@@ -174,8 +174,9 @@ class Output(object):
 	    ip_array = []
 	    url_filename = []
             #link_file = open("/data/cowrie/log/links", 'w')
-	    print "aaaa"
             for link, ip in links:
+		print "ppppp"
+		print ip
                 links_array.append(link)
 		ip_array.append(ip)
 		url_filename.append(link[link.rfind('/')+1:])
