@@ -221,6 +221,7 @@ class Output(object):
 		js_data['url_filename'] = link[link.rfind('/')+1:]
 		if ev['eventid'] == "cowrie.command.input":
            	    link_file.write(json.dumps(js_data)+"\n")
+		js_data = {}
             #links_array = set(links_array)
             link_file.close()
             ev['cowrie_links'] = links_array
