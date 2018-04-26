@@ -168,20 +168,19 @@ class Output(object):
             except:
                 pass
 	if 'message' in ev and ev['message'] != ():
-	    print "yyyyyyeeeeesssss"
 	    print ev['message']
-	    print "bbbbbbb"
-       	    links = re.findall("https?://[\w/\.:]+", ev['message'])
+       	    links = re.findall("https?://(?P<ipaddress>[\w\.]+)[\w/\.:]+", ev['message'])
             links_array = []
+	    ip_array = []
             #link_file = open("/data/cowrie/log/links", 'w')
             for link in links:
-	        print link
-	        print "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 links_array.append(link)
+		ip_array.append(link.group('ipaddress'))
             #    link_file.write(link+"\n")
             #links_array = set(links_array)
             #link_file.close()
             ev['cowrie_links'] = links_array
+	    ev['cowrie_ip'] = ip_array
             ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(\d\d\s)?(?P<ip>[\d\.]+)", ev['message'])
             ftp_ip = []
             for link in ftp_links:
