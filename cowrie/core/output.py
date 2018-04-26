@@ -177,7 +177,7 @@ class Output(object):
             for link, ip in links:
                 links_array.append(link)
 		ip_array.append(ip)
-		url_filename.append(link.sub[rfind.('/'):])
+		url_filename.append(link[link.rfind('/'):])
             #    link_file.write(link+"\n")
             #links_array = set(links_array)
             #link_file.close()
