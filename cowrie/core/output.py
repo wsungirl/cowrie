@@ -169,13 +169,13 @@ class Output(object):
                 pass
 	if 'message' in ev and ev['message'] != ():
 	    print ev['message']
-       	    links = re.findall("https?://(?P<ipaddress>[\w\.]+)[\w/\.:]+", ev['message'])
+       	    links = re.findall("https?://[\w/\.:]+", ev['message'])
             links_array = []
 	    ip_array = []
             #link_file = open("/data/cowrie/log/links", 'w')
-            for link in links:
+            for link, ip in links:
                 links_array.append(link)
-		ip_array.append(link.group('ipaddress'))
+		ip_array.append(ip)
             #    link_file.write(link+"\n")
             #links_array = set(links_array)
             #link_file.close()
@@ -183,9 +183,8 @@ class Output(object):
 	    ev['cowrie_ip'] = ip_array
             ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(\d\d\s)?(?P<ip>[\d\.]+)", ev['message'])
             ftp_ip = []
-            for link in ftp_links:
-		print link
-	        ftp_ip.append(link.group('ip'))	
+            for ip in ftp_links:
+	        ftp_ip.append(ip)	
             ev['cowrie_ip'] = ftp_ip
         # On disconnect add the tty log
         #if ev['eventid'] == 'cowrie.log.closed':
