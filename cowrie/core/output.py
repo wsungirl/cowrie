@@ -174,6 +174,7 @@ class Output(object):
 	    ip_array = []
 	    url_filename = []
             #link_file = open("/data/cowrie/log/links", 'w')
+	    print "aaaa"
             for link, ip in links:
                 links_array.append(link)
 		ip_array.append(ip)
@@ -181,6 +182,7 @@ class Output(object):
             #    link_file.write(link+"\n")
             #links_array = set(links_array)
             #link_file.close()
+	    print "bbbbbb"
             ev['cowrie_links'] = links_array
 	    ev['cowrie_ip'] = ip_array
 	    ev['cowrie_url_name'] = url_filename
