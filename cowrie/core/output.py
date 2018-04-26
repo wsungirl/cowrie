@@ -38,6 +38,7 @@ import re
 import copy
 import socket
 import time
+import json
 
 from cowrie.core.config import CONFIG
 
@@ -173,25 +174,28 @@ class Output(object):
             links_array = []
 	    ip_array = []
 	    url_filename = []
-            #link_file = open("/data/cowrie/log/links", 'w')
+	    js_data = {}
+            link_file = open("/data/cowrie/log/links.json", "a")
             for link, ip in links:
-		print "ppppp"
 		print ip
                 links_array.append(link)
 		ip_array.append(ip)
 		url_filename.append(link[link.rfind('/')+1:])
-            #    link_file.write(link+"\n")
+		js_data['timestamp'] = ev['timestamp']
+		js_data['cowrie_links'] = link
+		js_data['cowrie_url_ip'] = ip
+		js_data['url_filename'] = link[link.rfind('/')+1:]
+           	link_file.write(json.dumps(js_data)+"\n")
             #links_array = set(links_array)
-            #link_file.close()
-	    print "bbbbbb"
+            link_file.close()
             ev['cowrie_links'] = links_array
-	    ev['cowrie_ip'] = ip_array
+	    ev['cowrie_url_ip'] = ip_array
 	    ev['cowrie_url_name'] = url_filename
             ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(\d\d\s)?(?P<ip>[\d\.]+)", ev['message'])
             ftp_ip = []
             for ip in ftp_links:
 	        ftp_ip.append(ip)	
-            ev['cowrie_ip'] = ftp_ip
+            ev['cowrie_ftp_ip'] = ftp_ip
         # On disconnect add the tty log
         #if ev['eventid'] == 'cowrie.log.closed':
             # FIXME: file is read for each output plugin
