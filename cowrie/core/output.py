@@ -169,7 +169,7 @@ class Output(object):
                 pass
 	if 'message' in ev and ev['message'] != ():
 	    print ev['message']
-       	    links = re.findall("https?://(?P<ip>[\w\.]+)[\w/\.:]*", ev['message'])
+       	    links = re.findall("(https?://(?P<ip>[\w\.]+)[\w/\.:]*)", ev['message'])
             links_array = []
 	    ip_array = []
 	    url_filename = []
@@ -178,7 +178,7 @@ class Output(object):
             for link, ip in links:
                 links_array.append(link)
 		ip_array.append(ip)
-		url_filename.append(link[link.rfind('/'):])
+		url_filename.append(link[link.rfind('/')+1:])
             #    link_file.write(link+"\n")
             #links_array = set(links_array)
             #link_file.close()
