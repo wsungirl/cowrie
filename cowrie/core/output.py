@@ -168,35 +168,7 @@ class Output(object):
                 del ev['format']
             except:
                 pass
-	if 'message' in ev and ev['message'] != ():
-	    print ev['message']
-       	    links = re.findall("(https?://(?P<ip>[\w\.]+)[\w/\.:]*)", ev['message'])
-            links_array = []
-	    ip_array = []
-	    url_filename = []
-	    js_data = {}
-            link_file = open("log/links.json", "a")
-            for link, ip in links:
-		print ip
-                links_array.append(link)
-		ip_array.append(ip)
-		url_filename.append(link[link.rfind('/')+1:])
-		js_data['timestamp'] = ev['timestamp']
-		js_data['cowrie_links'] = link
-		js_data['cowrie_url_ip'] = ip
-		js_data['url_filename'] = link[link.rfind('/')+1:]
-		if ev['eventid'] == "cowrie.command.input":
-           	    link_file.write(json.dumps(js_data)+"\n")
-            #links_array = set(links_array)
-            link_file.close()
-            ev['cowrie_links'] = links_array
-	    ev['cowrie_url_ip'] = ip_array
-	    ev['cowrie_url_name'] = url_filename
-            ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(\d\d\s)?(?P<ip>[\d\.]+)", ev['message'])
-            ftp_ip = []
-            for ip in ftp_links:
-	        ftp_ip.append(ip)	
-            ev['cowrie_ftp_ip'] = ftp_ip
+	
         # On disconnect add the tty log
         #if ev['eventid'] == 'cowrie.log.closed':
             # FIXME: file is read for each output plugin
@@ -232,6 +204,34 @@ class Output(object):
         else:
             ev['session'] = self.sessions[sessionno]
 
+	if 'message' in ev and ev['message'] != ():
+       	    links = re.findall("(https?://(?P<ip>[\w\.]+)[\w/\.:]*)", ev['message'])
+            links_array = []
+	    ip_array = []
+	    url_filename = []
+	    js_data = {}
+            link_file = open("log/links.json", "a")
+            for link, ip in links:
+                links_array.append(link)
+		ip_array.append(ip)
+		url_filename.append(link[link.rfind('/')+1:])
+		js_data['timestamp'] = ev['timestamp']
+		js_data['cowrie_links'] = link
+		js_data['cowrie_url_ip'] = ip
+		js_data['url_filename'] = link[link.rfind('/')+1:]
+		if ev['eventid'] == "cowrie.command.input":
+           	    link_file.write(json.dumps(js_data)+"\n")
+            #links_array = set(links_array)
+            link_file.close()
+            ev['cowrie_links'] = links_array
+	    ev['cowrie_url_ip'] = ip_array
+	    ev['cowrie_url_name'] = url_filename
+            ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(\d\d\s)?(?P<ip>[\d\.]+)", ev['message'])
+            ftp_ip = []
+            for ip in ftp_links:
+	        ftp_ip.append(ip)	
+            ev['cowrie_ftp_ip'] = ftp_ip
+	
         self.write(ev)
 
         # Disconnect is special, remove cached data
