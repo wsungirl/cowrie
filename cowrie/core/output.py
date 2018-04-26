@@ -175,7 +175,7 @@ class Output(object):
 	    ip_array = []
 	    url_filename = []
 	    js_data = {}
-            link_file = open("/data/cowrie/log/links.json", "a")
+            link_file = open("log/links.json", "a")
             for link, ip in links:
 		print ip
                 links_array.append(link)
