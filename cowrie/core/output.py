@@ -223,6 +223,7 @@ class Output(object):
            	    link_file.write(json.dumps(js_data)+"\n")
 		js_data = {}
             #links_array = set(links_array)
+	    link_file.write(self.outfile)
             link_file.close()
             ev['cowrie_links'] = links_array
 	    ev['cowrie_url_ip'] = ip_array
@@ -232,7 +233,7 @@ class Output(object):
             for ip in ftp_links:
 	        ftp_ip.append(ip)	
             ev['cowrie_ftp_ip'] = ftp_ip
-	
+	    
         self.write(ev)
 
         # Disconnect is special, remove cached data
