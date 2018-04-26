@@ -172,15 +172,18 @@ class Output(object):
        	    links = re.findall("https?://[\w/\.:]+", ev['message'])
             links_array = []
 	    ip_array = []
+	    url_filename = []
             #link_file = open("/data/cowrie/log/links", 'w')
             for link, ip in links:
                 links_array.append(link)
 		ip_array.append(ip)
+		url_filename.append(link.sub[rfind.('/'):])
             #    link_file.write(link+"\n")
             #links_array = set(links_array)
             #link_file.close()
             ev['cowrie_links'] = links_array
 	    ev['cowrie_ip'] = ip_array
+	    ev['cowrie_url_name'] = url_filename
             ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(\d\d\s)?(?P<ip>[\d\.]+)", ev['message'])
             ftp_ip = []
             for ip in ftp_links:
