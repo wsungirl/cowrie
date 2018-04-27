@@ -229,15 +229,14 @@ class Output(object):
             ftp_ip = []
 	    js_data = {}
 	    link_file = open("log/ip.json", "a")
-            for ip in ftp_links:
+            for link, ip in ftp_links:
 		js_data['timestamp'] = ev['timestamp']
 		js_data['src_ip'] = ev['src_ip']
 		js_data['message'] = ev['message']
-		if ip:
-	            ftp_ip.append(ip)
-		    js_data['cowrie_ftp_ip'] = ip
-		    if ev['eventid'] == "cowrie.command.input" and self.outfile.name == "cowrie.json":
-           	        link_file.write(json.dumps(js_data)+"\n")
+	        ftp_ip.append(ip)
+		js_data['cowrie_ftp_ip'] = ip
+		if ev['eventid'] == "cowrie.command.input" and self.outfile.name == "cowrie.json":
+           	    link_file.write(json.dumps(js_data)+"\n")
 	    link_file.close()
 	    ev['cowrie_links'] = links_array
 	    ev['cowrie_url_ip'] = ip_array
