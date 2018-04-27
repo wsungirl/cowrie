@@ -223,7 +223,7 @@ class Output(object):
            	    link_file.write(json.dumps(js_data)+"\n")
 		js_data = {}
             #links_array = set(links_array)
-	    link_file.write(self.outfile)
+	    link_file.write(self.outfile.name)
             link_file.close()
             ev['cowrie_links'] = links_array
 	    ev['cowrie_url_ip'] = ip_array
