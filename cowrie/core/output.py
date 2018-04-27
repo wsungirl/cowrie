@@ -228,7 +228,7 @@ class Output(object):
             ftp_links = re.findall("ftp(get)?[\-\w\s]*\s(?P<ip>[\d\.]+)", ev['message'])
             ftp_ip = []
 	    js_data = {}
-	    link_file = open("log/ip.json", "a")
+	    link_file = open("log/ftp_ip.json", "a")
             for link, ip in ftp_links:
 		js_data['timestamp'] = ev['timestamp']
 		js_data['src_ip'] = ev['src_ip']
