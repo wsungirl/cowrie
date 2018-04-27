@@ -225,7 +225,7 @@ class Output(object):
            	    link_file.write(json.dumps(js_data)+"\n")
 		js_data = {}
             link_file.close()
-            ftp_links = re.findall("ftp(get)?\s[\-\w\s]*(\d\d\s)?(?P<ip>[\d\.]+)", ev['message'])
+            ftp_links = re.findall("ftp(get)?[\-\w\s]*\s(?P<ip>[\d\.]+)", ev['message'])
             ftp_ip = []
 	    js_data = {}
 	    link_file = open("log/ip.json", "a")
@@ -238,6 +238,9 @@ class Output(object):
 		if ev['eventid'] == "cowrie.command.input" and self.outfile.name == "cowrie.json":
            	    link_file.write(json.dumps(js_data)+"\n")
 	    link_file.close()
+	    ev['cowrie_links'] = links_array
+	    ev['cowrie_url_ip'] = ip_array
+	    ev['url_filename'] = url_filename
             ev['cowrie_ftp_ip'] = ftp_ip
 	    
         self.write(ev)
