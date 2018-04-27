@@ -225,8 +225,9 @@ class Output(object):
            	    link_file.write(json.dumps(js_data)+"\n")
 		js_data = {}
             link_file.close()
-            ftp_links = re.findall("ftp(get)?[\-\w\s]*\s(?P<ip>[\d\.]+)", ev['message'])
+            ftp_links = re.findall("(t?ftpd?(get)?[\-\w\s]*\s(?P<ip>[\d\.]+))", ev['message'])
             ftp_ip = []
+	    ftp_cmd = []
 	    js_data = {}
 	    link_file = open("log/ftp_ip.json", "a")
             for link, ip in ftp_links:
@@ -234,7 +235,9 @@ class Output(object):
 		js_data['src_ip'] = ev['src_ip']
 		js_data['message'] = ev['message']
 	        ftp_ip.append(ip)
+		ftp_cmd.append(link)
 		js_data['cowrie_ftp_ip'] = ip
+		js_data['cowrie_ftp_command'] = link
 		if ev['eventid'] == "cowrie.command.input" and self.outfile.name == "cowrie.json":
            	    link_file.write(json.dumps(js_data)+"\n")
 	    link_file.close()
@@ -242,7 +245,7 @@ class Output(object):
 	    ev['cowrie_url_ip'] = ip_array
 	    ev['url_filename'] = url_filename
             ev['cowrie_ftp_ip'] = ftp_ip
-	    
+	    ev['cowrie_ftp_command'] = ftp_cmd
         self.write(ev)
 
         # Disconnect is special, remove cached data
