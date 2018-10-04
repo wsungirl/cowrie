@@ -196,6 +196,11 @@ class Output(object):
 
         if sessionno in self.ips:
             ev['src_ip'] = self.ips[sessionno]
+	try:
+	    ev['dst_port'] = self.transport.getHost().port
+	except Exception:
+	     print "no port"
+	     
 
         # Connection event is special. adds to session list
         if ev['eventid'] == 'cowrie.session.connect':
